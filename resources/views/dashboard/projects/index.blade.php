@@ -80,7 +80,7 @@
                     </div>
 
                     {{-- Mobile: card layout agar lebih mudah dibaca di layar kecil --}}
-                    <div class="space-y-4 md:hidden">
+                    <div class="md:hidden space-y-4">
                         @forelse ($projects as $project)
                             <div class="rounded-lg border border-gray-700 bg-gray-900 p-4 text-white">
                                 <div class="space-y-1">
@@ -90,20 +90,20 @@
                                     </p>
                                 </div>
 
-                                <div class="mt-4 grid grid-cols-1 gap-2 sm:grid-cols-3">
+                                <div class="mt-4 flex flex-wrap items-center gap-3">
                                     @if ($project->link)
                                         <a href="{{ $project->link }}"
                                            target="_blank"
                                            rel="noopener noreferrer"
-                                           class="inline-flex items-center justify-center rounded border border-indigo-500 px-3 py-2 text-sm text-indigo-400 transition hover:bg-indigo-500/10 hover:underline">
+                                           class="text-sm text-indigo-400 hover:underline">
                                             Buka
                                         </a>
                                     @else
-                                        <span class="inline-flex items-center justify-center rounded border border-gray-700 px-3 py-2 text-sm text-gray-400">-</span>
+                                        <span class="text-sm text-gray-400">-</span>
                                     @endif
 
                                     <a href="{{ route('dashboard.projects.edit', $project) }}"
-                                       class="inline-flex items-center justify-center rounded bg-amber-500 px-3 py-2 text-sm text-white transition hover:bg-amber-600">
+                                       class="inline-block rounded bg-amber-500 px-3 py-1.5 text-sm text-white hover:bg-amber-600 transition">
                                         Edit
                                     </a>
 
@@ -113,7 +113,7 @@
                                         @csrf
                                         @method('DELETE')
                                         <button type="submit"
-                                                class="w-full rounded bg-rose-600 px-3 py-2 text-sm text-white transition hover:bg-rose-700">
+                                                class="rounded bg-rose-600 px-3 py-1.5 text-sm text-white hover:bg-rose-700 transition">
                                             Hapus
                                         </button>
                                     </form>
