@@ -21,7 +21,8 @@
                         </div>
                     @endif
 
-                    <div class="overflow-x-auto">
+                    {{-- Desktop/tablet: tabel tetap seperti sebelumnya --}}
+                    <div class="hidden md:block overflow-x-auto">
                         <table class="w-full text-left border-collapse text-white">
                             <thead>
                                 <tr class="border-b border-gray-200 dark:border-gray-700">
@@ -39,9 +40,16 @@
                                             {{ collect($project->tech)->implode(', ') }}
                                         </td>
                                         <td class="py-3 pr-4">
-                                            <a href="{{ route('projects') }}" class="text-indigo-600 hover:underline">
-                                                Buka
-                                            </a>
+                                            @if ($project->link)
+                                                <a href="{{ $project->link }}"
+                                                   target="_blank"
+                                                   rel="noopener noreferrer"
+                                                   class="text-indigo-600 hover:underline">
+                                                    Buka
+                                                </a>
+                                            @else
+                                                <span class="text-gray-400">-</span>
+                                            @endif
                                         </td>
                                         <td class="py-3 text-right">
                                             <a href="{{ route('dashboard.projects.edit', $project) }}"
@@ -69,6 +77,51 @@
                                 @endforelse
                             </tbody>
                         </table>
+                    </div>
+
+                    {{-- Mobile: card layout agar lebih mudah dibaca di layar kecil --}}
+                    <div class="md:hidden space-y-4">
+                        @forelse ($projects as $project)
+                            <div class="rounded-lg border border-gray-700 bg-gray-900 p-4 text-white">
+                                <div class="space-y-1">
+                                    <h3 class="text-base font-semibold">{{ $project->title }}</h3>
+                                    <p class="text-sm text-gray-300">
+                                        {{ collect($project->tech)->implode(', ') }}
+                                    </p>
+                                </div>
+
+                                <div class="mt-4 flex flex-wrap items-center gap-3">
+                                    @if ($project->link)
+                                        <a href="{{ $project->link }}"
+                                           target="_blank"
+                                           rel="noopener noreferrer"
+                                           class="text-sm text-indigo-400 hover:underline">
+                                            Buka
+                                        </a>
+                                    @else
+                                        <span class="text-sm text-gray-400">-</span>
+                                    @endif
+
+                                    <a href="{{ route('dashboard.projects.edit', $project) }}"
+                                       class="inline-block rounded bg-amber-500 px-3 py-1.5 text-sm text-white hover:bg-amber-600 transition">
+                                        Edit
+                                    </a>
+
+                                    <form action="{{ route('dashboard.projects.destroy', $project) }}"
+                                          method="POST"
+                                          onsubmit="return confirm('Yakin ingin menghapus project ini?');">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="submit"
+                                                class="rounded bg-rose-600 px-3 py-1.5 text-sm text-white hover:bg-rose-700 transition">
+                                            Hapus
+                                        </button>
+                                    </form>
+                                </div>
+                            </div>
+                        @empty
+                            <p class="py-4 text-center text-white">Belum ada data project.</p>
+                        @endforelse
                     </div>
                 </div>
             </div>
