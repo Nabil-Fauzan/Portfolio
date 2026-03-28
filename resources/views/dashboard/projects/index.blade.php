@@ -1,11 +1,11 @@
 <x-app-layout>
     <x-slot name="header">
-        <div class="flex items-center justify-between">
-                            <h2 class="font-semibold text-xl text-white leading-tight">
+        <div class="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+            <h2 class="font-semibold text-xl text-white leading-tight">
                 Manajemen Project
             </h2>
             <a href="{{ route('dashboard.projects.create') }}"
-               class="px-4 py-2 bg-indigo-600 text-white rounded-md hover:bg-indigo-700 transition">
+               class="inline-flex w-full items-center justify-center rounded-md bg-indigo-600 px-4 py-2 text-white transition hover:bg-indigo-700 sm:w-auto">
                 Tambah Project
             </a>
         </div>
@@ -14,7 +14,7 @@
     <div class="py-10">
         <div class="max-w-6xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white dark:bg-gray-800 shadow-sm sm:rounded-lg overflow-hidden">
-                <div class="p-6">
+                <div class="p-4 sm:p-6">
                     @if (session('success'))
                         <div class="mb-4 rounded-md bg-emerald-100 text-emerald-800 px-4 py-3">
                             {{ session('success') }}
